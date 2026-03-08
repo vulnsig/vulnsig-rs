@@ -4,16 +4,18 @@ use crate::color::score_to_hue;
 use crate::geometry::{arc_path, radial_cuts, ring_fill, star_path};
 use crate::parse::{detect_cvss_version, get_severity, is_version3, parse_cvss};
 use crate::score::calculate_score;
-use crate::RenderOptions;
 
 /// Render a CVSS vector as an SVG glyph string.
-pub fn render_glyph(options: &RenderOptions) -> String {
-    let vector = options.vector;
-    let size = options.size.unwrap_or(120);
+///
+/// - `vector`: CVSS 4.0, 3.1, or 3.0 vector string.
+/// - `score`: Explicit score override (0-10). Auto-calculated when `None`.
+/// - `size`: Rendered size in pixels. Default: 120.
+pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> String {
+    let size = size.unwrap_or(120);
     let metrics = parse_cvss(vector);
     let version = detect_cvss_version(vector).unwrap_or(crate::parse::CvssVersion::V4_0);
 
-    let score = options.score.unwrap_or_else(|| calculate_score(vector));
+    let score = score.unwrap_or_else(|| calculate_score(vector));
 
     let hr = score_to_hue(score);
     let hue = hr.hue;

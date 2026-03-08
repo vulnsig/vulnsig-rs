@@ -1,6 +1,6 @@
 use vulnsig::{
     calculate_score, detect_cvss_version, is_version3, parse_cvss, render_glyph, score_to_hue,
-    CvssVersion, RenderOptions,
+    CvssVersion,
 };
 
 const LOG4SHELL: &str = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H";
@@ -222,22 +222,14 @@ fn calculate_score_cvss30_xss() {
 
 #[test]
 fn render_glyph_valid_svg() {
-    let svg = render_glyph(&RenderOptions {
-        vector: LOG4SHELL,
-        score: Some(10.0),
-        size: None,
-    });
+    let svg = render_glyph(LOG4SHELL, Some(10.0), None);
     assert!(svg.starts_with("<svg "));
     assert!(svg.ends_with("</svg>"));
 }
 
 #[test]
 fn render_glyph_respects_size() {
-    let svg = render_glyph(&RenderOptions {
-        vector: LOG4SHELL,
-        score: Some(10.0),
-        size: Some(64),
-    });
+    let svg = render_glyph(LOG4SHELL, Some(10.0), Some(64));
     assert!(svg.contains("width=\"64\""));
     assert!(svg.contains("height=\"64\""));
 }
@@ -246,11 +238,7 @@ fn render_glyph_respects_size() {
 fn render_glyph_all_test_vectors() {
     let vectors = load_test_vectors();
     for tv in &vectors {
-        let svg = render_glyph(&RenderOptions {
-            vector: &tv.vector,
-            score: Some(tv.score),
-            size: None,
-        });
+        let svg = render_glyph(&tv.vector, Some(tv.score), None);
         assert!(
             svg.starts_with("<svg "),
             "Failed for {}: {}",
@@ -269,11 +257,7 @@ fn render_glyph_cvss31_vectors() {
         CVSS31_DIRTY_COW,
         CVSS31_XSS,
     ] {
-        let svg = render_glyph(&RenderOptions {
-            vector,
-            score: None,
-            size: None,
-        });
+        let svg = render_glyph(vector, None, None);
         assert!(svg.starts_with("<svg "));
         assert!(svg.ends_with("</svg>"));
     }
@@ -281,33 +265,21 @@ fn render_glyph_cvss31_vectors() {
 
 #[test]
 fn render_glyph_cvss31_scope_changed() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS31_LOG4SHELL,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS31_LOG4SHELL, None, None);
     assert!(svg.contains("<svg"));
     assert!(svg.contains("</svg>"));
 }
 
 #[test]
 fn render_glyph_cvss31_scope_unchanged() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS31_HEARTBLEED,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS31_HEARTBLEED, None, None);
     assert!(svg.contains("<svg"));
     assert!(svg.contains("</svg>"));
 }
 
 #[test]
 fn render_glyph_cvss31_ui_r() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS31_XSS,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS31_XSS, None, None);
     assert!(svg.contains("<svg"));
     assert!(svg.contains("</svg>"));
 }
@@ -315,11 +287,7 @@ fn render_glyph_cvss31_ui_r() {
 #[test]
 fn render_glyph_cvss30_vectors() {
     for vector in [CVSS30_LOG4SHELL, CVSS30_HEARTBLEED, CVSS30_XSS] {
-        let svg = render_glyph(&RenderOptions {
-            vector,
-            score: None,
-            size: None,
-        });
+        let svg = render_glyph(vector, None, None);
         assert!(svg.starts_with("<svg "));
         assert!(svg.ends_with("</svg>"));
     }
@@ -327,22 +295,14 @@ fn render_glyph_cvss30_vectors() {
 
 #[test]
 fn render_glyph_cvss30_scope_changed() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS30_LOG4SHELL,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS30_LOG4SHELL, None, None);
     assert!(svg.contains("<svg"));
     assert!(svg.contains("</svg>"));
 }
 
 #[test]
 fn render_glyph_cvss30_scope_unchanged() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS30_HEARTBLEED,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS30_HEARTBLEED, None, None);
     assert!(svg.contains("<svg"));
     assert!(svg.contains("</svg>"));
 }
@@ -350,11 +310,7 @@ fn render_glyph_cvss30_scope_unchanged() {
 #[test]
 fn render_glyph_e_a_concentric_rings() {
     let vector = log4shell_e_a();
-    let svg = render_glyph(&RenderOptions {
-        vector: &vector,
-        score: Some(10.0),
-        size: None,
-    });
+    let svg = render_glyph(&vector, Some(10.0), None);
     assert!(svg.contains("<svg"));
     // E:A renders concentric ring strokes with hsla
     assert!(svg.contains(r#"stroke="hsla("#));
@@ -363,11 +319,7 @@ fn render_glyph_e_a_concentric_rings() {
 #[test]
 fn render_glyph_e_p_solid_circle() {
     let vector = log4shell_e_p();
-    let svg = render_glyph(&RenderOptions {
-        vector: &vector,
-        score: Some(10.0),
-        size: None,
-    });
+    let svg = render_glyph(&vector, Some(10.0), None);
     assert!(svg.contains("<svg"));
     // E:P renders solid filled circle with hsla
     assert!(svg.contains(r#"fill="hsla("#));
@@ -376,11 +328,7 @@ fn render_glyph_e_p_solid_circle() {
 #[test]
 fn render_glyph_e_u_no_marker() {
     let vector = log4shell_e_u();
-    let svg = render_glyph(&RenderOptions {
-        vector: &vector,
-        score: Some(10.0),
-        size: None,
-    });
+    let svg = render_glyph(&vector, Some(10.0), None);
     assert!(svg.contains("<svg"));
     assert!(!svg.contains(r#"fill="hsla("#));
     assert!(!svg.contains(r#"stroke="hsla("#));
@@ -389,11 +337,7 @@ fn render_glyph_e_u_no_marker() {
 #[test]
 fn render_glyph_e_x_no_marker() {
     let vector = log4shell_e_x();
-    let svg = render_glyph(&RenderOptions {
-        vector: &vector,
-        score: Some(10.0),
-        size: None,
-    });
+    let svg = render_glyph(&vector, Some(10.0), None);
     assert!(svg.contains("<svg"));
     assert!(!svg.contains(r#"fill="hsla("#));
     assert!(!svg.contains(r#"stroke="hsla("#));
@@ -401,11 +345,7 @@ fn render_glyph_e_x_no_marker() {
 
 #[test]
 fn render_glyph_cvss3x_no_e_marker() {
-    let svg = render_glyph(&RenderOptions {
-        vector: CVSS31_LOG4SHELL,
-        score: None,
-        size: None,
-    });
+    let svg = render_glyph(CVSS31_LOG4SHELL, None, None);
     assert!(!svg.contains(r#"fill="hsla("#));
     assert!(!svg.contains(r#"stroke="hsla("#));
 }
