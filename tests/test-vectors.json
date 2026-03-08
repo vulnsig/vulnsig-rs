@@ -1,0 +1,670 @@
+[
+  {
+    "name": "Log4Shell",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Heartbleed",
+    "cve": "CVE-2014-0160",
+    "score": 8.7,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:L/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Spectre",
+    "cve": "CVE-2017-5715",
+    "score": 5.6,
+    "vector": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:H/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "EternalBlue",
+    "cve": "CVE-2017-0144",
+    "score": 9.3,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Dirty COW",
+    "cve": "CVE-2016-5195",
+    "score": 7.3,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "BlueKeep",
+    "cve": "CVE-2019-0708",
+    "score": 9.3,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:L/SI:L/SA:L",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Phishing Link",
+    "cve": "Example",
+    "score": 5.1,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "USB Physical",
+    "cve": "Example",
+    "score": 7.3,
+    "vector": "CVSS:4.0/AV:P/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 3,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Rowhammer",
+    "cve": "CVE-2015-0565",
+    "score": 5.9,
+    "vector": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:H/VI:H/VA:N/SC:H/SI:H/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "KRACK",
+    "cve": "CVE-2017-13077",
+    "score": 5.6,
+    "vector": "CVSS:4.0/AV:A/AC:H/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 6,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Shellshock",
+    "cve": "CVE-2014-6271",
+    "score": 9.2,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "POODLE",
+    "cve": "CVE-2014-3566",
+    "score": 2.3,
+    "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Meltdown",
+    "cve": "CVE-2017-5754",
+    "score": 5.6,
+    "vector": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:H/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "Sudo Baron Samedit",
+    "cve": "CVE-2021-3156",
+    "score": 8.4,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "DDoS Amplification",
+    "cve": "Example",
+    "score": 8.7,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "XSS Stored",
+    "cve": "Example",
+    "score": 5.1,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": true,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "ThinkPwn BIOS",
+    "cve": "CVE-2016-5729",
+    "score": 8.4,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thick"
+    }
+  },
+  {
+    "name": "UEFI S3 Flash Bypass",
+    "cve": "CVE-2015-2890",
+    "score": 7.1,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thick"
+    }
+  },
+  {
+    "name": "Junos Proxy ARP DoS",
+    "cve": "CVE-2013-6014",
+    "score": 6.4,
+    "vector": "CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:H/SI:N/SA:H",
+    "expect": {
+      "starPoints": 6,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Acrobat Security Bypass",
+    "cve": "CVE-2021-44714",
+    "score": 4.6,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Dolibarr XSS",
+    "cve": "CVE-2024-55228",
+    "score": 8.5,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:A/VC:H/VI:H/VA:H/SC:L/SI:L/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "Wowza Stored XSS",
+    "cve": "CVE-2024-52053",
+    "score": 8.7,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": true,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "authentik PKCE Bypass",
+    "cve": "CVE-2023-48228",
+    "score": 9.3,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:H/SI:H/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "SQLi Mixed Impact",
+    "cve": "Example",
+    "score": 7.1,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:L/VA:N/SC:L/SI:N/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "regreSSHion",
+    "cve": "CVE-2024-6387",
+    "score": 9.2,
+    "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Synth: Seg+Split+Bumps",
+    "cve": "Synthesized",
+    "score": 7.1,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:H/VI:L/VA:N/SC:L/SI:N/SA:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "none",
+      "bumps": true,
+      "prStroke": "none"
+    }
+  },
+  {
+    "name": "Synth: Seg+Clean",
+    "cve": "Synthesized",
+    "score": 5.8,
+    "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:A/VC:H/VI:N/VA:L/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "Synth: PR:H+Split+Bumps",
+    "cve": "Synthesized",
+    "score": 6.8,
+    "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:H/UI:P/VC:H/VI:H/VA:N/SC:L/SI:L/SA:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "none",
+      "bumps": true,
+      "prStroke": "thick"
+    }
+  },
+  {
+    "name": "Synth: Triangle+Seg+Split",
+    "cve": "Synthesized",
+    "score": 5.6,
+    "vector": "CVSS:4.0/AV:P/AC:H/AT:P/PR:L/UI:N/VC:H/VI:N/VA:L/SC:H/SI:N/SA:N",
+    "expect": {
+      "starPoints": 3,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "Synth: Minimal (score ~1)",
+    "cve": "Synthesized",
+    "score": 1.0,
+    "vector": "CVSS:4.0/AV:P/AC:H/AT:P/PR:H/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 3,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thick"
+    }
+  },
+  {
+    "name": "Synth: Hexagon+Bumps",
+    "cve": "Synthesized",
+    "score": 5.1,
+    "vector": "CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:P/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+    "expect": {
+      "starPoints": 6,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": true,
+      "prStroke": "none"
+    }
+  },
+  {
+    "name": "Log4Shell E:A",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:A",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "A"
+    }
+  },
+  {
+    "name": "Log4Shell E:P",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:P",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "P"
+    }
+  },
+  {
+    "name": "Log4Shell E:U",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:U",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "U"
+    }
+  },
+  {
+    "name": "Log4Shell E:X",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "X"
+    }
+  },
+  {
+    "name": "Synth: AV:A AC:H E:A",
+    "cve": "Synthesized",
+    "score": 6.0,
+    "vector": "CVSS:4.0/AV:A/AC:H/AT:N/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N/E:A",
+    "expect": {
+      "starPoints": 6,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "A"
+    }
+  },
+  {
+    "name": "Synth: AV:A AC:H E:P",
+    "cve": "Synthesized",
+    "score": 5.1,
+    "vector": "CVSS:4.0/AV:A/AC:H/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:L/SI:N/SA:N/E:P",
+    "expect": {
+      "starPoints": 6,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "P"
+    }
+  },
+  {
+    "name": "Synth: AV:L AC:H E:A",
+    "cve": "Synthesized",
+    "score": 5.6,
+    "vector": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:H/SI:N/SA:N/E:A",
+    "expect": {
+      "starPoints": 4,
+      "segmented": true,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium",
+      "exploitMaturity": "A"
+    }
+  },
+  {
+    "name": "Synth: AV:L AC:H E:P",
+    "cve": "Synthesized",
+    "score": 5.5,
+    "vector": "CVSS:4.0/AV:L/AC:H/AT:N/PR:L/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N/E:P",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium",
+      "exploitMaturity": "P"
+    }
+  },
+  {
+    "name": "Synth: AV:P AC:H E:A",
+    "cve": "Synthesized",
+    "score": 4.4,
+    "vector": "CVSS:4.0/AV:P/AC:H/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:A",
+    "expect": {
+      "starPoints": 3,
+      "segmented": true,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "A"
+    }
+  },
+  {
+    "name": "Synth: AV:P AC:H E:P",
+    "cve": "Synthesized",
+    "score": 4.0,
+    "vector": "CVSS:4.0/AV:P/AC:H/AT:N/PR:N/UI:N/VC:H/VI:H/VA:N/SC:L/SI:N/SA:N/E:P",
+    "expect": {
+      "starPoints": 3,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin",
+      "exploitMaturity": "P"
+    }
+  },
+  {
+    "name": "Log4Shell (3.1)",
+    "cve": "CVE-2021-44228",
+    "score": 10.0,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Heartbleed (3.1)",
+    "cve": "CVE-2014-0160",
+    "score": 7.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Dirty COW (3.1)",
+    "cve": "CVE-2016-5195",
+    "score": 7.1,
+    "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "medium"
+    }
+  },
+  {
+    "name": "XSS Reflected (3.1)",
+    "cve": "Example",
+    "score": 6.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "Heartbleed (3.0)",
+    "cve": "CVE-2014-0160",
+    "score": 7.5,
+    "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "long",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  },
+  {
+    "name": "XSS Reflected (3.0)",
+    "cve": "Example",
+    "score": 6.1,
+    "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": true,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thin"
+    }
+  }
+]
