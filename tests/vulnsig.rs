@@ -27,6 +27,16 @@ fn log4shell_e_x() -> String {
     format!("{LOG4SHELL}/E:X")
 }
 
+// CVSS 2.0 test vectors (bare, no prefix).
+const CVSS2_HEARTBLEED: &str = "AV:N/AC:L/Au:N/C:P/I:N/A:N";
+const CVSS2_WORST: &str = "AV:N/AC:L/Au:N/C:C/I:C/A:C";
+const CVSS2_LOCAL_LOW: &str = "AV:L/AC:H/Au:M/C:P/I:N/A:N";
+const CVSS2_PREFIXED: &str = "CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P";
+const CVSS2_WITH_E_H: &str = "AV:N/AC:L/Au:N/C:C/I:C/A:C/E:H/RL:OF/RC:C";
+const CVSS2_AC_M: &str = "AV:N/AC:M/Au:S/C:P/I:P/A:N";
+const CVSS2_PARENS: &str = "(AV:N/AC:M/Au:N/C:N/I:P/A:N)";
+const CVSS2_AU_M: &str = "AV:N/AC:L/Au:M/C:C/I:C/A:C";
+
 // Test vectors loaded from JSON
 #[derive(serde::Deserialize)]
 struct TestVector {
@@ -236,4 +246,154 @@ fn render_glyph_cvss3x_no_e_marker() {
     let svg = render_glyph(CVSS31_LOG4SHELL, None, None);
     assert!(!svg.contains(r#"fill="hsla("#));
     assert!(!svg.contains(r#"stroke="hsla("#));
+}
+
+// --- CVSS 2.0 ---
+
+#[test]
+fn detect_cvss2_bare() {
+    use vulnsig::{detect_cvss_version, CvssVersion};
+    assert_eq!(detect_cvss_version(CVSS2_HEARTBLEED).unwrap(), CvssVersion::V2_0);
+}
+
+#[test]
+fn detect_cvss2_prefixed() {
+    use vulnsig::{detect_cvss_version, CvssVersion};
+    assert_eq!(detect_cvss_version(CVSS2_PREFIXED).unwrap(), CvssVersion::V2_0);
+}
+
+#[test]
+fn detect_cvss2_parens_wrapped() {
+    use vulnsig::{detect_cvss_version, CvssVersion};
+    assert_eq!(detect_cvss_version(CVSS2_PARENS).unwrap(), CvssVersion::V2_0);
+}
+
+#[test]
+fn detect_unknown_prefix_errors() {
+    use vulnsig::detect_cvss_version;
+    assert!(detect_cvss_version("CVSS:1.0/AV:N").is_err());
+}
+
+#[test]
+fn detect_bare_garbage_errors() {
+    use vulnsig::detect_cvss_version;
+    // No Au — doesn't look like a CVSS 2.0 base vector.
+    assert!(detect_cvss_version("foo:bar/baz:qux").is_err());
+}
+
+#[test]
+fn parse_cvss2_bare() {
+    use vulnsig::parse_cvss;
+    let m = parse_cvss(CVSS2_HEARTBLEED);
+    assert_eq!(m.get("AV").map(|s| s.as_str()), Some("N"));
+    assert_eq!(m.get("Au").map(|s| s.as_str()), Some("N"));
+    assert_eq!(m.get("C").map(|s| s.as_str()), Some("P"));
+}
+
+#[test]
+fn parse_cvss2_prefixed_matches_bare() {
+    use vulnsig::parse_cvss;
+    let m = parse_cvss(CVSS2_PREFIXED);
+    assert_eq!(m.get("Au").map(|s| s.as_str()), Some("N"));
+    assert_eq!(m.get("C").map(|s| s.as_str()), Some("P"));
+}
+
+#[test]
+fn parse_cvss2_parens_wrapped() {
+    use vulnsig::parse_cvss;
+    let m = parse_cvss(CVSS2_PARENS);
+    assert_eq!(m.get("AV").map(|s| s.as_str()), Some("N"));
+    assert_eq!(m.get("AC").map(|s| s.as_str()), Some("M"));
+    assert_eq!(m.get("I").map(|s| s.as_str()), Some("P"));
+}
+
+#[test]
+fn parse_cvss2_temporal_modifiers() {
+    use vulnsig::parse_cvss;
+    let m = parse_cvss(CVSS2_WITH_E_H);
+    assert_eq!(m.get("E").map(|s| s.as_str()), Some("H"));
+    assert_eq!(m.get("RL").map(|s| s.as_str()), Some("OF"));
+    assert_eq!(m.get("RC").map(|s| s.as_str()), Some("C"));
+}
+
+#[test]
+fn calculate_score_cvss2_heartbleed() {
+    let score = calculate_score(CVSS2_HEARTBLEED);
+    assert!((score - 5.0).abs() < 0.05, "Expected ~5.0, got {score}");
+}
+
+#[test]
+fn calculate_score_cvss2_worst() {
+    let score = calculate_score(CVSS2_WORST);
+    assert!((score - 10.0).abs() < 0.05, "Expected ~10.0, got {score}");
+}
+
+#[test]
+fn calculate_score_cvss2_ac_m() {
+    // AV:L/AC:M/Au:N/C:P/I:P/A:P -> 4.4
+    let score = calculate_score("AV:L/AC:M/Au:N/C:P/I:P/A:P");
+    assert!((score - 4.4).abs() < 0.05, "Expected ~4.4, got {score}");
+}
+
+#[test]
+fn calculate_score_cvss2_temporal_lowers_base() {
+    // Base = 10.0; E:H * RL:OF * RC:C = 1.0 * 0.87 * 1.0 = 0.87 -> 8.7
+    let score = calculate_score(CVSS2_WITH_E_H);
+    assert!((score - 8.7).abs() < 0.05, "Expected ~8.7, got {score}");
+}
+
+#[test]
+fn calculate_score_cvss2_prefixed_matches_bare() {
+    let bare = "AV:N/AC:L/Au:N/C:P/I:P/A:P";
+    assert!((calculate_score(CVSS2_PREFIXED) - calculate_score(bare)).abs() < 0.05);
+}
+
+#[test]
+fn calculate_score_cvss2_parens_matches_unwrapped() {
+    let unwrapped = "AV:N/AC:M/Au:N/C:N/I:P/A:N";
+    assert!((calculate_score(CVSS2_PARENS) - calculate_score(unwrapped)).abs() < 0.05);
+}
+
+#[test]
+fn render_glyph_cvss2_bare() {
+    let svg = render_glyph(CVSS2_HEARTBLEED, None, None);
+    assert!(svg.starts_with("<svg "));
+    assert!(svg.ends_with("</svg>"));
+}
+
+#[test]
+fn render_glyph_cvss2_parens() {
+    let svg = render_glyph(CVSS2_PARENS, None, None);
+    assert!(svg.starts_with("<svg "));
+}
+
+#[test]
+fn render_glyph_cvss2_ac_m_renders() {
+    let svg = render_glyph(CVSS2_AC_M, None, None);
+    assert!(svg.starts_with("<svg "));
+}
+
+#[test]
+fn render_glyph_cvss2_au_m_thick_stroke() {
+    let svg = render_glyph(CVSS2_AU_M, None, None);
+    assert!(svg.contains(r#"stroke-width="3.5""#));
+}
+
+#[test]
+fn render_glyph_cvss2_au_n_no_stroke() {
+    let svg = render_glyph(CVSS2_WORST, None, None);
+    assert!(!svg.contains(r#"stroke-width="3.5""#));
+    assert!(!svg.contains(r#"stroke-width="1.5""#));
+}
+
+#[test]
+fn render_glyph_cvss2_e_h_concentric_rings() {
+    let svg = render_glyph(CVSS2_WITH_E_H, None, None);
+    assert!(svg.contains(r#"stroke="hsla("#));
+}
+
+#[test]
+fn render_glyph_cvss2_local_low() {
+    let svg = render_glyph(CVSS2_LOCAL_LOW, None, None);
+    assert!(svg.starts_with("<svg "));
 }
