@@ -128,8 +128,8 @@ fn calculate_cvss2_score(body: &str) -> Option<f64> {
         return Some(temporal);
     }
 
-    let adj_impact = (10.41 * (1.0 - (1.0 - c * cr) * (1.0 - i_imp * ir) * (1.0 - a_imp * ar)))
-        .min(10.0);
+    let adj_impact =
+        (10.41 * (1.0 - (1.0 - c * cr) * (1.0 - i_imp * ir) * (1.0 - a_imp * ar))).min(10.0);
     let adj_f = if adj_impact == 0.0 { 0.0 } else { 1.176 };
     let adj_base = round1((0.6 * adj_impact + 0.4 * exploitability - 1.5) * adj_f);
     let adj_temporal = round1(adj_base * e * rl * rc);

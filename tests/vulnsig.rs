@@ -253,19 +253,28 @@ fn render_glyph_cvss3x_no_e_marker() {
 #[test]
 fn detect_cvss2_bare() {
     use vulnsig::{detect_cvss_version, CvssVersion};
-    assert_eq!(detect_cvss_version(CVSS2_HEARTBLEED).unwrap(), CvssVersion::V2_0);
+    assert_eq!(
+        detect_cvss_version(CVSS2_HEARTBLEED).unwrap(),
+        CvssVersion::V2_0
+    );
 }
 
 #[test]
 fn detect_cvss2_prefixed() {
     use vulnsig::{detect_cvss_version, CvssVersion};
-    assert_eq!(detect_cvss_version(CVSS2_PREFIXED).unwrap(), CvssVersion::V2_0);
+    assert_eq!(
+        detect_cvss_version(CVSS2_PREFIXED).unwrap(),
+        CvssVersion::V2_0
+    );
 }
 
 #[test]
 fn detect_cvss2_parens_wrapped() {
     use vulnsig::{detect_cvss_version, CvssVersion};
-    assert_eq!(detect_cvss_version(CVSS2_PARENS).unwrap(), CvssVersion::V2_0);
+    assert_eq!(
+        detect_cvss_version(CVSS2_PARENS).unwrap(),
+        CvssVersion::V2_0
+    );
 }
 
 #[test]
