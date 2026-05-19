@@ -666,5 +666,61 @@
       "bumps": false,
       "prStroke": "thin"
     }
+  },
+  {
+    "name": "Heartbleed (2.0)",
+    "cve": "CVE-2014-0160",
+    "score": 5.0,
+    "vector": "AV:N/AC:L/Au:N/C:P/I:N/A:N",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "none"
+    }
+  },
+  {
+    "name": "Conficker MS08-067 (2.0)",
+    "cve": "CVE-2008-4250",
+    "score": 10.0,
+    "vector": "AV:N/AC:L/Au:N/C:C/I:C/A:C",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "none"
+    }
+  },
+  {
+    "name": "Local Privilege Esc (2.0)",
+    "cve": "Example",
+    "score": 4.4,
+    "vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P",
+    "expect": {
+      "starPoints": 4,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "none"
+    }
+  },
+  {
+    "name": "Auth-required v2",
+    "cve": "Example",
+    "score": 6.5,
+    "vector": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+    "expect": {
+      "starPoints": 8,
+      "segmented": false,
+      "splitBand": false,
+      "spikes": "none",
+      "bumps": false,
+      "prStroke": "thin"
+    }
   }
 ]

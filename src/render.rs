@@ -2,12 +2,12 @@ use std::f64::consts::PI;
 
 use crate::color::score_to_hue;
 use crate::geometry::{arc_path, radial_cuts, ring_fill, star_path};
-use crate::parse::{detect_cvss_version, get_severity, is_version3, parse_cvss};
+use crate::parse::{detect_cvss_version, get_severity, is_version2, is_version3, parse_cvss};
 use crate::score::calculate_score;
 
 /// Render a CVSS vector as an SVG glyph string.
 ///
-/// - `vector`: CVSS 4.0, 3.1, or 3.0 vector string.
+/// - `vector`: CVSS 4.0, 3.1, 3.0, or 2.0 vector string.
 /// - `score`: Explicit score override (0-10). Auto-calculated when `None`.
 /// - `size`: Rendered size in pixels. Default: 120.
 pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> String {
@@ -23,29 +23,36 @@ pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> Stri
     let light = hr.light;
 
     let ac = get_severity(&metrics, "AC");
-    let at = if is_version3(version) {
+    // CVSS 2.0 and 3.x have no AT — render as solid.
+    let at = if is_version3(version) || is_version2(version) {
         1.0
     } else {
         get_severity(&metrics, "AT")
     };
 
-    let vc = if is_version3(version) {
+    // CVSS 2.0 and 3.x both use C/I/A (not VC/VI/VA). The shared severity
+    // table resolves v2's N/P/C and v3's N/L/H from the same lookup.
+    let use_v3_cia = is_version3(version) || is_version2(version);
+    let vc = if use_v3_cia {
         get_severity(&metrics, "C")
     } else {
         get_severity(&metrics, "VC")
     };
-    let vi = if is_version3(version) {
+    let vi = if use_v3_cia {
         get_severity(&metrics, "I")
     } else {
         get_severity(&metrics, "VI")
     };
-    let va = if is_version3(version) {
+    let va = if use_v3_cia {
         get_severity(&metrics, "A")
     } else {
         get_severity(&metrics, "VA")
     };
 
-    let (sc, si, sa) = if is_version3(version) {
+    // CVSS 2.0 has no scope. CVSS 3.x splits only when S:C.
+    let (sc, si, sa) = if is_version2(version) {
+        (0.0, 0.0, 0.0)
+    } else if is_version3(version) {
         let scope_changed = get_severity(&metrics, "S") > 0.5;
         if scope_changed {
             (vc, vi, va)
@@ -92,11 +99,16 @@ pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> Stri
     let star_outer_r = inner_r - 2.0;
     let star_inner_r = star_outer_r * (0.55 - ac * 0.35);
 
-    // PR stroke
-    let pr_raw = metrics.get("PR").map(|s| s.as_str()).unwrap_or("N");
+    // Star outline: CVSS 3.x/4.0 use PR (N/L/H); CVSS 2.0 reuses the channel
+    // for Au (N/S/M).
+    let pr_raw = if is_version2(version) {
+        metrics.get("Au").map(|s| s.as_str()).unwrap_or("N")
+    } else {
+        metrics.get("PR").map(|s| s.as_str()).unwrap_or("N")
+    };
     let pr_stroke_width: f64 = match pr_raw {
-        "H" => 3.5,
-        "L" => 1.5,
+        "H" | "M" => 3.5,
+        "L" | "S" => 1.5,
         _ => 0.0,
     };
 
@@ -193,16 +205,20 @@ pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> Stri
         "<circle cx=\"{cx}\" cy=\"{cy}\" r=\"{inner_r}\" fill=\"none\"/>"
     ));
 
-    // Z-order 3.5: E (Exploit Maturity) marker — CVSS 4.0 only
+    // Z-order 3.5: E (Exploit Maturity) marker — CVSS 4.0 and 2.0, behind the star.
+    // CVSS 4.0: A (Attacked) -> rings, P (PoC) -> disc, U/X -> none.
+    // CVSS 2.0: H (High)     -> rings, POC/F  -> disc, U/ND -> none.
     let e_raw = if is_version3(version) {
         None
     } else {
         metrics.get("E").map(|s| s.as_str())
     };
-    if e_raw == Some("A") || e_raw == Some("P") {
+    let e_rings = e_raw == Some("A") || e_raw == Some("H");
+    let e_disc = e_raw == Some("P") || e_raw == Some("POC") || e_raw == Some("F");
+    if e_rings || e_disc {
         let e_circle_r = inner_r - ring_gap;
         let e_ring_gap = ring_gap * 3.0;
-        if e_raw == Some("A") {
+        if e_rings {
             let e_color = format!("hsla({hue}, {sat}%, {sf_light}%, 0.5)");
             let sw = ring_width;
             let step = sw + e_ring_gap;
@@ -214,7 +230,6 @@ pub fn render_glyph(vector: &str, score: Option<f64>, size: Option<u32>) -> Stri
                 r -= step;
             }
         } else {
-            // E:P -> solid filled circle
             parts.push(format!(
                 "<circle cx=\"{cx}\" cy=\"{cy}\" r=\"{e_circle_r}\" fill=\"hsla({hue}, {sat}%, {sf_light}%, 0.375)\"/>"
             ));

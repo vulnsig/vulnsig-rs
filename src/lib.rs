@@ -5,5 +5,6 @@ mod render;
 mod score;
 
 pub use color::{score_to_hue, HueResult};
+pub use parse::{detect_cvss_version, parse_cvss, CvssVersion, ParsedMetrics};
 pub use render::render_glyph;
 pub use score::calculate_score;
