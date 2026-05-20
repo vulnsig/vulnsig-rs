@@ -1,6 +1,6 @@
 [package]
 name = "vulnsig"
-version = "1.3.0"
+version = "2.0.0"
 edition = "2021"
 description = "Render CVSS vulnerability vectors as expressive SVG glyphs"
 license = "MIT"
